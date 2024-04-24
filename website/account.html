@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stuck&Stock</title>
+    <link rel="stylesheet" media="screen" href="styles.css">
+    <link rel="icon" type="image/png" href="rep/12.png">
+    <style>
+        .orders-section {
+            width: 80%;
+            margin: 0 10%; /* 10% отступы слева и справа */
+        }
+
+        .search-user-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.search-user-container label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.search-user-container input[type="text"] {
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-user-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-user-container button:hover {
+    background-color: #555;
+}
+
+        </style>
+</head>
+<body>
+    <header>
+        <div class="cart">
+            <a href="cart.html"><img src="rep/busketicon.png" alt="Cart"></a>
+        </div>
+        <div class="logo">
+            <div class="iconLogo"><img width="60px" height="60px" src="rep/12.png" alt="Market Icon"></div>
+            <a href="home.html">Stuck&Stock MARKET</a>
+        </div>
+        <div class="categories">
+            <button class="dropdown-btn">Categories</button>
+            <div class="dropdown-content">
+            </div>
+        </div>
+        <div class="user">
+            <a href="login.html"><img src="rep/usericon.png" alt="User"></a>
+        </div>
+    </header>
+
+
+    <div class="account-container">
+        <div class="user-name">John Doe</div>
+        <div class="user-info">Date of Birth: January 1, 1990</div>
+        <div class="user-info">Registration Address: 123 Main Street, City, Country</div>
+    
+        
+        <div class="comments-section">
+            <h2>Your Comments</h2>
+            <div class="comments-container">
+
+            </div>
+        </div>
+        
+    </div>
+    <div class="orders-section">
+        <h2>Your favourite Orders</h2>
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Products</th>
+                    <th>Status</th>
+                    <th>Shipping Address</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    
+
+
+    <div class="search-user-container">
+        <label for="search-user">Search User:</label>
+        <input type="text" id="search-user" placeholder="Enter username">
+        <button id="search-button">Search</button>
+    </div>
+    
+    
+    <footer>
+        <div class="footer-left">
+            <p>&copy; 2024 Stuck&Stock. All rights reserved.</p>
+        </div>
+        <div class="footer-right">
+            <button id="developersBtn">Developers</button>
+
+        </div>
+    
+    </footer>
+    <div class="modal" id="developersModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Our Developers</h2>
+            <p>Developed by Vasilyev Mishail and Ezik Mishail</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const commentsContainer = document.querySelector(".comments-container");
+
+    // Массив данных для комментариев 
+    const commentsData = [
+        { imageSrc: "comment_image.jpg", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla commodo ipsum in turpis pretium, et vehicula ipsum mattis." },
+        { imageSrc: "comment_image.jpg", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla commodo ipsum in turpis pretium, et vehicula ipsum mattis." },
+        { imageSrc: "comment_image.jpg", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla commodo ipsum in turpis pretium, et vehicula ipsum mattis." },
+                { imageSrc: "comment_image.jpg", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla commodo ipsum in turpis pretium, et vehicula ipsum mattis." },
+        { imageSrc: "comment_image.jpg", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla commodo ipsum in turpis pretium, et vehicula ipsum mattis." }
+    ];
+
+    function createCommentElement(comment) {
+        const commentElement = document.createElement("div");
+        commentElement.classList.add("comment");
+
+        const image = document.createElement("img");
+        image.src = comment.imageSrc;
+        image.alt = "Comment";
+        image.classList.add("comment-image");
+        commentElement.appendChild(image);
+
+        const text = document.createElement("div");
+        text.textContent = comment.text;
+        text.classList.add("comment-text");
+        commentElement.appendChild(text);
+
+        return commentElement;
+    }
+
+    commentsData.forEach(comment => {
+        const commentElement = createCommentElement(comment);
+        commentsContainer.appendChild(commentElement);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const ordersTableBody = document.querySelector(".orders-table tbody");
+
+    // Данные для заполнения таблицы
+    const ordersData = [
+        { id: 1, products: "List of products 1", status: "COMPLETED", shippingAddress: "123 Main Street, City, Country", date: "2024-04-05" },
+        { id: 2, products: "List of products 2", status: "BLABLA", shippingAddress: "123 Main Street, City, Country", date: "2024-05-05" }
+    ];
+
+    function createOrderRow(order) {
+        const row = document.createElement("tr");
+
+        // Создание ячеек для данных заказа
+        const cells = ['id', 'products', 'status', 'shippingAddress', 'date'].map(key => {
+            const cell = document.createElement("td");
+            if (key === 'products') {
+                const link = document.createElement("a");
+                link.href = `product${order.id}.html`;
+                link.textContent = order[key];
+                cell.appendChild(link);
+            } else {
+                cell.textContent = order[key];
+            }
+            return cell;
+        });
+
+        cells.forEach(cell => row.appendChild(cell));
+
+        return row;
+    }
+
+    ordersData.forEach(order => {
+        const row = createOrderRow(order);
+        ordersTableBody.appendChild(row);
+    });
+
+   
+
+});
+    </script>
+</body>
+</html>

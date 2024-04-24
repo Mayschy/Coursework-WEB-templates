@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stuck&Stock</title>
+    <link rel="stylesheet" media="screen" href="styles.css">
+    <link rel="icon" type="image/png" href="rep/12.png">
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh; /* Высота контейнера для центрирования по вертикали */
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            background-color: #87eba5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #60aa76;
+        }
+        .btn {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #87eba5;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 19px;
+}
+
+.registration-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #87eba5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.login-input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid rgb(174, 238, 174);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.login-btn {
+    padding: 10px 20px;
+    background-color: #65e78c;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.login-btn:hover {
+    background-color: #87eba5;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="cart">
+            <a href="cart.html"><img src="rep/busketicon.png" alt="Cart"></a>
+        </div>
+        <div class="logo">
+            <div class="iconLogo"><img width="60px" height="60px" src="rep/12.png" alt="Market Icon"></div>
+            <a href="home.html">Stuck&Stock MARKET</a>
+        </div>
+        <div class="categories">
+            <button class="dropdown-btn">Categories</button>
+            <div class="dropdown-content">
+            </div>
+        </div>
+
+        <div class="user">
+            <a href="login.html"><img src="rep/usericon.png" alt="User"></a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="btn-container">
+            <button class="btn" onclick="openAddProductModal()">Добавить Товар</button>
+            <button class="btn" onclick="openAddCategoryModal()">Добавить Категорию</button>
+            <button class="btn" onclick="openDeleteProductModal()">Удалить Товар</button>
+            <button class="btn" onclick="openDeleteCategoryModal()">Удалить Категорию</button>
+            <button class="btn" onclick="openChangeOrderStatusModal()">Изменить статус заказа</button>
+        </div>
+    </div>
+
+    <div class="registration-popup" id="addProductModal">
+        <span class="close-btn" onclick="closeModal('addProductModal')">&times;</span>
+        <h2>Добавить Товар</h2>
+        <input class="login-input" type="text" placeholder="Название товара">
+        <input class="login-input" type="number" placeholder="Цена товара">
+        <textarea class="login-input" placeholder="Описание товара"></textarea>
+        <input class="login-input" type="file" placeholder="Изображение товара">
+        <input class="login-input" type="text" placeholder="Идентификатор товара">
+        <button class="login-btn" onclick="closeModal('addProductModal')">Принять</button>
+    </div>
+
+    <div class="registration-popup" id="addCategoryModal">
+        <span class="close-btn" onclick="closeModal('addCategoryModal')">&times;</span>
+        <h2>Добавить Категорию</h2>
+        <input class="login-input" id="categoryName" type="text" placeholder="Название категории">
+        <input class="login-input" id="parentCategory" type="text" placeholder="Родительская категория">
+        <button class="login-btn" onclick="createCategory()">Принять</button> 
+    </div>
+    
+    
+    <div class="registration-popup" id="deleteProductModal">
+        <span class="close-btn" onclick="closeModal('deleteProductModal')">&times;</span>
+        <h2>Удалить Товар</h2>
+        <input class="login-input" type="text" placeholder="Название товара">
+        <input class="login-input" type="text" placeholder="Идентификатор товара">
+        <button class="login-btn" onclick="closeModal('deleteProductModal')">Принять</button>
+    </div>
+    
+    <div class="registration-popup" id="deleteCategoryModal">
+        <span class="close-btn" onclick="closeModal('deleteCategoryModal')">&times;</span>
+        <h2>Удалить Категорию</h2>
+        <input class="login-input" type="text" placeholder="Название категории">
+        <button class="login-btn" onclick="closeModal('deleteCategoryModal')">Принять</button>
+    </div>
+    
+    <div class="registration-popup" id="changeOrderStatusModal">
+        <span class="close-btn" onclick="closeModal('changeOrderStatusModal')">&times;</span>
+        <h2>Изменить статус заказа</h2>
+        <input class="login-input" type="text" placeholder="Идентификатор заказа">
+        <select class="login-input">
+            <option value="UNPAID">UNPAID</option>
+            <option value="PROCESSING">PROCESSING</option>
+            <option value="SHIPPING">SHIPPING</option>
+            <option value="COMPLETED">COMPLETED</option>
+            <option value="CANCELED">CANCELED</option>
+        </select>
+        <button class="login-btn" onclick="closeModal('changeOrderStatusModal')">Принять</button>
+    </div>
+    
+    <footer>
+        <div class="footer-left">
+            <p>&copy; 2024 Stuck&Stock. All rights reserved.</p>
+        </div>
+        <div class="footer-right">
+            <button id="developersBtn">Developers</button>
+
+        </div>      
+    </footer>
+    <div class="modal" id="developersModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Our Developers</h2>
+            <p>Developed by Vasilyev Mishail and Ezik Mishail</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+// Функция для открытия модального окна по его ID
+function openModal(modalId) {
+    var modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'block';
+    }
+}
+
+// Функция для закрытия модального окна по его ID
+function closeModal(modalId) {
+    var modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Функции, вызываемые при нажатии на соответствующие кнопки
+function openAddProductModal() {
+    openModal('addProductModal');
+}
+
+function openAddCategoryModal() {
+    openModal('addCategoryModal');
+}
+
+function openDeleteProductModal() {
+    openModal('deleteProductModal');
+}
+
+function openDeleteCategoryModal() {
+    openModal('deleteCategoryModal');
+}
+
+function openChangeOrderStatusModal() {
+    openModal('changeOrderStatusModal');
+}
+
+
+
+    </script>
+</body>
+</html>

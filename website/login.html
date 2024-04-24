@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stuck&Stock</title>
+    <link rel="stylesheet" media="screen" href="styles.css">
+    <style>
+
+    </style>
+    <link rel="icon" type="image/png" href="rep/12.png">
+</head>
+<body>
+    <header>
+        <div class="cart">
+            <a href="cart.html"><img src="rep/busketicon.png" alt="Cart"></a>
+        </div>
+        <div class="logo">
+            <div class="iconLogo"><img width="60px" height="60px" src="rep/12.png" alt="Market Icon"></div>
+            <a href="home.html">Stuck&Stock MARKET</a>
+        </div>
+        <div class="categories">
+            <button class="dropdown-btn">Categories</button>
+            <div class="dropdown-content">
+            </div>
+        </div>
+        <div class="user">
+            <a href="login.html"><img src="rep/usericon.png" alt="User"></a>
+        </div>
+    </header>
+
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form>
+            <label for="email">Email:</label><br>
+<input type="email" id="email" name="email" class="login-input" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required><br>
+
+<label for="password">Password:</label><br>
+<input type="password" id="password" name="password" class="login-input" pattern=".{8,}" title="Password must be at least 8 characters long" required><br><br>
+
+<button type="submit" class="login-btn2" onclick="login()">Login</button>
+
+        </form>
+        <p style="font-size: 18; margin-top: 30px;">Don't have an account?
+            <button class="register-btn">Register</button>
+            
+    </div>
+</div>
+
+
+<div class="registration-popup">
+    <div class="close-btn">&#10006;</div> 
+    <form action="register.php" method="post">  <h2>Register Now</h2>
+      <label for="fullname">Full Name:</label>
+      <input type="text" id="fullname" name="fullname" required>
+  
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" class="login-input" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required><br>
+  
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+  
+      <label for="password">Password:</label><br>
+<input type="password" id="password" name="password" class="login-input" pattern=".{8,}" title="Password must be at least 8 characters long" required><br><br>
+  
+      <label for="Checkmail-code">Check-mail code:</label>
+      <input type="text" id="Checkmail-code" name="Checkmail-code" required>
+      
+      <label for="Admin-secret">Admin-secret:</label>
+      <input type="text" id="Admin-secret" name="Admin-secret" placeholder="0000" required>
+    
+      <label for="address">Registration Address:</label>
+      <textarea id="address" name="address" rows="2" required></textarea>
+  
+      <div class="button-container">
+        <button class="register-btn">Register</button>
+        <button class="check-mail-code-btn">Check Code</button>
+    </div>
+    
+
+    </form>
+  </div>
+
+
+
+
+
+    
+    <footer>
+        <div class="footer-left">
+            <p>&copy; 2024 Stuck&Stock. All rights reserved.</p>
+        </div>
+        <div class="footer-right">
+            <button id="developersBtn">Developers</button>
+
+        </div>
+    
+    </footer>
+    <div class="modal" id="developersModal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Our Developers</h2>
+            <p>Developed by Vasilyev Mishail and Ezik Mishail</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerBtn = document.querySelector('.register-btn');
+            const registrationPopup = document.querySelector('.registration-popup');
+            const closeBtns = document.querySelectorAll('.close-btn');
+    
+            registerBtn.addEventListener('click', function() {
+                registrationPopup.classList.toggle('open');
+            });
+
+            closeBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    registrationPopup.classList.remove('open');
+                });
+            });
+        });
+
+
+    </script>
+     <script> function login() {
+        window.location.href = 'account.html';
+    }</script>
+     
+
+</body>
+</html>
